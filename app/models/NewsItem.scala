@@ -17,7 +17,7 @@ class NewsItem(id : Int) {
 	def getJson() = Json.obj(
 		"id" -> id,
 		"message" -> message,
-		"createdDate" -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(createdDate)
+		"createdDate" -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSSS").format(createdDate)
 	)
 
 	override def toString() : String = Json.stringify(getJson())

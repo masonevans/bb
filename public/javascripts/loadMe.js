@@ -16,7 +16,14 @@ function loadFriendList() {
 }
 
 function loadNewsFeed() {
-	$("#newsFeed").html("News Feed");
+	$.get("http://localhost:9000/news", function(data) {
+		$("#newsFeed").html("");
+		data.forEach(
+			function(element, index, array) {
+				$("#newsFeed").append("<div class='newsItemContainer'>" + "<p class='newsItem'>" + element.message + "</p>" + "<p class='newsItemCreatedDate'>" + element.createdDate + "</p></div>")
+			}
+		);
+	}, "json");
 }
 
 //loadAbout();

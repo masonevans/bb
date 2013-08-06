@@ -19,10 +19,10 @@ object Application extends Controller {
   }*/
   
   def friends = Action {
-    Ok(Friend.getAllJson())
+    Ok(FriendList.getJson())
   }  
   
   def news = Action {
-    Ok(new NewsItem(12345).toString())
+    Ok(NewsFeed.getAllJson())
   }
 }

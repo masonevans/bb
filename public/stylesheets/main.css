@@ -1,6 +1,17 @@
-body {
+/*------Clear-------*/
+
+body, p{
 	padding: 0px;
 	margin: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/*------Structure-------*/
+
+#bodyContainer {
+	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #about {
@@ -15,28 +26,45 @@ body {
 #friendList {
 	border: 1px black solid;
 	width: 200px; 
-	position: absolute;
 	right: 10px;
 	top: 10px;
 	float: right;
 	padding: 5px;
+	margin: 5px;
 }
 
 #newsFeed {
 	border: 1px black solid;
-	width: 500px;
+	width: 800px;
 	padding: 5px;
 	clear: left;
 	margin: 5px;
 }
 
+/*------Friends-------*/
+
 .friendUser {
-	padding: 0px;
 	border: 1px solid black;
-	margin: 0px;
+	margin: 2px;
+	padding: 2px;
 }
 
 .friendUser:hover {
-	background: #fafafa;
+	background: #f7f7f7;
 	cursor: pointer;
+}
+
+/*------News-------*/
+.newsItemContainer {
+	clear: both;
+}
+
+.newsItem {
+	clear: both;
+}
+
+.newsItemCreatedDate {
+	color: #aaa;
+	right: 10px;
+	font-size: 75%;
 }
