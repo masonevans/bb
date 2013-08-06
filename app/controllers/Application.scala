@@ -21,4 +21,8 @@ object Application extends Controller {
   def friends = Action {
     Ok(Friend.getAllJson())
   }  
+  
+  def news = Action {
+    Ok(new NewsItem(12345).toString())
+  }
 }

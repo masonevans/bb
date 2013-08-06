@@ -2,9 +2,7 @@ package models
 
 import play.api.libs.json._
 
-class User(idc : Int) {
-
-	var id: Int = idc
+class User(id : Int) {
 	
 	def name = id match {
 		case 1234 => "Mason"

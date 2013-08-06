@@ -1,15 +1,23 @@
+body {
+	padding: 0px;
+	margin: 0px;
+}
+
 #about {
 	border: 1px black solid;
 	width: 200px;
 	clear: none;
 	padding: 5px;
+	float: left;
+	margin: 5px;
 }
 
 #friendList {
 	border: 1px black solid;
 	width: 200px; 
 	position: absolute;
-	right: 0px;
+	right: 10px;
+	top: 10px;
 	float: right;
 	padding: 5px;
 }
@@ -18,10 +26,17 @@
 	border: 1px black solid;
 	width: 500px;
 	padding: 5px;
+	clear: left;
+	margin: 5px;
 }
 
 .friendUser {
 	padding: 0px;
 	border: 1px solid black;
 	margin: 0px;
+}
+
+.friendUser:hover {
+	background: #fafafa;
+	cursor: pointer;
 }
