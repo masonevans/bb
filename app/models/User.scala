@@ -2,14 +2,21 @@ package models
 
 import play.api.libs.json._
 
-class User(idc : BigDecimal) {
+class User(idc : Int) {
 
-	var id: BigDecimal = idc
+	var id: Int = idc
 	
-	def getJson() : String = Json.stringify(Json.obj(
+	def name = id match {
+		case 1234 => "Mason"
+		case 1235 => "Tom"
+		case 1236 => "Albert"
+		case _ => "Unknown"
+	}
+	
+	def getJson() = Json.obj(
 		"id" -> id,
-		"name" -> "Mason"
-	))
+		"name" -> name
+	)
 
-	override def toString() : String = "( " + id + " )"
+	override def toString() : String = Json.stringify(getJson())
 }

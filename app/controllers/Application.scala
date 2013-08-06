@@ -2,7 +2,7 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-import models.User
+import models._
 
 object Application extends Controller {
   
@@ -14,12 +14,11 @@ object Application extends Controller {
 	Ok(views.html.me("BB:Me", new User(1234)))
   }
   
-  def about = Action {
-	Ok(new User(1234).getJson())
-  }
-  
-  def friends = TODO /*Action {
-    Ok(Friend.all())
+  def about = TODO /*Action {
+	Ok(User.get(User(1235)))
   }*/
   
+  def friends = Action {
+    Ok(Friend.getAllJson())
+  }  
 }

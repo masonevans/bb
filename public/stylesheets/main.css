@@ -1,0 +1,27 @@
+#about {
+	border: 1px black solid;
+	width: 200px;
+	clear: none;
+	padding: 5px;
+}
+
+#friendList {
+	border: 1px black solid;
+	width: 200px; 
+	position: absolute;
+	right: 0px;
+	float: right;
+	padding: 5px;
+}
+
+#newsFeed {
+	border: 1px black solid;
+	width: 500px;
+	padding: 5px;
+}
+
+.friendUser {
+	padding: 0px;
+	border: 1px solid black;
+	margin: 0px;
+}

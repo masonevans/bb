@@ -1,17 +1,24 @@
 function loadAbout() {
-	$.get("http://localhost:9000/about", function(data) {
+	/*$.get("http://localhost:9000/about", function(data) {
 		$("#about").html("Name: " + data.name);
-	}, "json");
+	}, "json");*/
 }
 
 function loadFriendList() {
-	$("#friendList").html("Friend List");
+	$.get("http://localhost:9000/friends", function(data) {
+		$("#friendList").html("");
+		data.forEach(
+			function(element, index, array) {
+				$("#friendList").append("<p class='friendUser'>" + element.name + "</p>");
+			}
+		);
+	}, "json");
 }
 
 function loadNewsFeed() {
 	$("#newsFeed").html("News Feed");
 }
 
-loadAbout();
+//loadAbout();
 loadFriendList();
 loadNewsFeed();

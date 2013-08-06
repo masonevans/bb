@@ -9,5 +9,7 @@ object Friend {
 		"id" -> id,
 		"name" -> "Mason"
 	))*/
-	//def all : List[User] = User() :: Nil
+	//def all : List[User] = User(1234) :: User(1235) :: Nil
+	
+	def getAllJson() = Json.stringify(Json.arr(new User(1235).getJson, new User(1236).getJson))
 }
