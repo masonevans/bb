@@ -8,9 +8,9 @@ class NewsItem(id : Int) {
 	val createdDate = new java.util.Date
 	
 	def message = id match {
-		case 12345 => "News1"
-		case 12346 => "News2"
-		case 12347 => "News3"
+		case 12345 => "News 1"
+		case 12346 => "News 2"
+		case 12347 => "News 3"
 		case _ => "Unknown"
 	}
 	

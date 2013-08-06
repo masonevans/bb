@@ -1,6 +1,6 @@
 /*------Clear-------*/
 
-body, p, li, ul{
+body, p, li, ul {
 	padding: 0px;
 	margin: 0px;
 	font-family: Arial, Helvetica, sans-serif;
@@ -27,7 +27,7 @@ li, ul {
 	margin: 5px;
 }
 
-#friendList {
+#friendListContainerContainer {
 	border: 1px black solid;
 	width: 200px; 
 	right: 10px;
@@ -37,7 +37,7 @@ li, ul {
 	margin: 5px;
 }
 
-#newsFeed {
+#newsFeedContainer {
 	border: 1px black solid;
 	width: 800px;
 	padding: 5px;
@@ -47,9 +47,16 @@ li, ul {
 
 /*------Friends-------*/
 
+#aboutContainer .userImage { }
+#aboutContainer .name { }
+#aboutContainer .email { font-size: 90%; } 
+
+/*------Friends-------*/
+
 .friendUser {
 	border: 1px solid black;
 	margin: 2px;
+	margin-left: 12px;
 	padding: 2px;
 }
 

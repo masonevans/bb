@@ -1,4 +1,6 @@
 @(user : User)
 <li>
-	<ul>@user.name</ul>
+	<ul class='userImage'><img src="@user.userImage"></ul>
+	<ul class='name'>@user.name</ul>
+	<ul class='email'>@user.email</ul>
 </li>

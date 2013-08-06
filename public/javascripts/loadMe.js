@@ -1,15 +1,9 @@
-function loadAbout() {
-	/*$.get("http://localhost:9000/about", function(data) {
-		$("#about").html("Name: " + data.name);
-	}, "json");*/
-}
-
 function loadFriendList() {
 	$.get("http://localhost:9000/friends", function(data) {
-		$("#friendList").html("");
+		$("#friendListContainer").html("");
 		data.forEach(
 			function(element, index, array) {
-				$("#friendList").append("<p class='friendUser'>" + element.name + "</p>");
+				$("#friendListContainer").append("<p class='friendUser' title='" + element.email + "'>" + element.name + "</p>");
 			}
 		);
 	}, "json");
@@ -17,15 +11,23 @@ function loadFriendList() {
 
 function loadNewsFeed() {
 	$.get("http://localhost:9000/news", function(data) {
-		$("#newsFeed").html("");
+		$("#newsFeedContainer").html("");
 		data.forEach(
 			function(element, index, array) {
-				$("#newsFeed").append("<div class='newsItemContainer'>" + "<p class='newsItem'>" + element.message + "</p>" + "<p class='newsItemCreatedDate'>" + element.createdDate + "</p></div>")
+				$("#newsFeedContainer").append(
+					"<div class='newsItemContainer'>" + 
+						"<p class='newsItem'>" + element.message + "</p>" + 
+						"<p class='newsItemCreatedDate'>" + element.createdDate + "</p>" + 
+					"</div>"
+				);
 			}
 		);
 	}, "json");
+	
 }
 
-//loadAbout();
 loadFriendList();
+//Call this every second
+setInterval(loadFriendList, 5 * 1000);
+
 loadNewsFeed();
