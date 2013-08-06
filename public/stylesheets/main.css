@@ -1,9 +1,13 @@
 /*------Clear-------*/
 
-body, p{
+body, p, li, ul{
 	padding: 0px;
 	margin: 0px;
 	font-family: Arial, Helvetica, sans-serif;
+}
+
+li, ul {
+	list-style: none;
 }
 
 /*------Structure-------*/
@@ -14,7 +18,7 @@ body, p{
 	margin-right: auto;
 }
 
-#about {
+#aboutContainer {
 	border: 1px black solid;
 	width: 200px;
 	clear: none;
