@@ -12,11 +12,12 @@ import play.api.libs.json._
 
 case class User(
 	id: ObjectId = new ObjectId,
-	userId: Int,
-	name: String,
-	email: String,
-	userImage: String,
-	posts: List[Int] = Nil
+	userId: Int = -1,
+	name: String = "",
+	email: String = "",
+	userImage: String = "",
+	posts: List[Int] = Nil,
+	friends: List[Int] = Nil
 )
 
 object User extends UserDAO with UserJson
@@ -24,7 +25,8 @@ object User extends UserDAO with UserJson
 trait UserDAO extends ModelCompanion[User, ObjectId] {
   val dao = new SalatDAO[User, ObjectId](collection = mongoCollection("users")) {}
 
-  def findOneByUserId(userId:Int) : Option[User] = dao.findOne(MongoDBObject("userId" -> userId));
+  def findOneByUserId(userId:Int) : User = dao.findOne(MongoDBObject("userId" -> userId)).getOrElse(User());
+  def findUsersByIds(userIdList:List[Int]) : List[User] = dao.find(MongoDBObject("userId" -> MongoDBObject("$in" -> userIdList))).toList
 }
 
 trait UserJson {

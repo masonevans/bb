@@ -11,13 +11,9 @@ object Application extends Controller {
     Ok(views.html.index("Your new application is ready."))
   }
   
-  def me(userId: Int) = Action { request => {
-	    val mongoUser = User.findOneByUserId(userId)
-	    mongoUser match {
-	      case Some(user) => Ok(views.html.me("BB:Me", user))     
-	      case None => BadRequest
-	    }
-    }
+  def me(userId: Int) = Action {
+    val mongoUser = User.findOneByUserId(userId)
+    Ok(views.html.me("BB:Me", mongoUser))
   }
   
   def about = TODO /*Action {
@@ -25,18 +21,13 @@ object Application extends Controller {
   }*/
   
   def friends = Action {
-    Ok(FriendList.getJson())
+    //Ok(FriendList.getJson())
+    Ok(Json.toJson(User.findUsersByIds(User.findOneByUserId(1234).friends)))
   }  
   
   def news(userId: Int) = Action {
-	    val userNews = User.findOneByUserId(userId)
-	    userNews match {
-	      case Some(user) => {
-	        val newsItems = NewsItem.findNewsItemsByIds(user.posts)
-	        
-	        Ok(Json.toJson(newsItems))
-	      }
-	      case None => BadRequest
-	    }
+    val userNews = User.findOneByUserId(userId)
+    val newsItems = NewsItem.findNewsItemsByIds(userNews.posts)
+    Ok(Json.toJson(newsItems))
   }
 }
