@@ -1,35 +1,40 @@
 package models
 
+import play.api.Play.current
+import java.util.Date
+import com.novus.salat._
+import com.novus.salat.annotations._
+import com.novus.salat.dao._
+import com.mongodb.casbah.Imports._
+import se.radley.plugin.salat._
+import mongoContext._
 import play.api.libs.json._
 
-class User(id : Int) {
-	
-	def name = id match {
-		case 1234 => "Mason"
-		case 1235 => "Tom"
-		case 1236 => "Albert"
-		case _ => "Unknown"
-	}
-	
-	def email = id match {
-		case 1234 => "mason@gmail.com"
-		case 1235 => "tom@gmail.com"
-		case 1236 => "albert@gmail.com"
-		case _ => "Unknown"
-	}
-	
-	def userImage = id match {
-		case 1234 => "img1.jpg"
-		case 1235 => "img2.jpg"
-		case 1236 => "img3.jpg"
-		case _ => "Unknown"
-	}
-	
-	def getJson() = Json.obj(
-		"id" -> id,
-		"name" -> name,
-		"email" -> email
-	)
+case class User(
+	id: ObjectId = new ObjectId,
+	userId: Int,
+	name: String,
+	email: String,
+	userImage: String,
+	posts: List[Int] = Nil
+)
 
-	override def toString() : String = Json.stringify(getJson())
+object User extends UserDAO with UserJson
+
+trait UserDAO extends ModelCompanion[User, ObjectId] {
+  val dao = new SalatDAO[User, ObjectId](collection = mongoCollection("users")) {}
+
+  def findOneByUserId(userId:Int) : Option[User] = dao.findOne(MongoDBObject("userId" -> userId));
+}
+
+trait UserJson {
+  implicit val getJson = new Writes[User] {
+    def writes(u: User): JsValue = {
+      Json.obj(
+		"userId" -> u.userId,
+		"name" -> u.name,
+		"email" -> u.email
+      )
+    }
+  } 
 }

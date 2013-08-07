@@ -10,7 +10,7 @@ function loadFriendList() {
 }
 
 function loadNewsFeed() {
-	$.get("http://localhost:9000/news", function(data) {
+	$.get("http://localhost:9000/news/1234", function(data) {
 		$("#newsFeedContainer").html("");
 		data.forEach(
 			function(element, index, array) {
