@@ -1,5 +1,5 @@
 function loadFriendList() {
-	$.get("http://localhost:9000/friends", function(data) {
+	$.get("http://localhost:9000/friends/" + userId, function(data) {
 		$("#friendListContainer").html("");
 		data.forEach(
 			function(element, index, array) {
@@ -10,7 +10,7 @@ function loadFriendList() {
 }
 
 function loadNewsFeed() {
-	$.get("http://localhost:9000/news/1234", function(data) {
+	$.get("http://localhost:9000/news/" + userId, function(data) {
 		$("#newsFeedContainer").html("");
 		data.forEach(
 			function(element, index, array) {

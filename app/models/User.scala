@@ -27,6 +27,9 @@ trait UserDAO extends ModelCompanion[User, ObjectId] {
 
   def findOneByUserId(userId:Int) : User = dao.findOne(MongoDBObject("userId" -> userId)).getOrElse(User());
   def findUsersByIds(userIdList:List[Int]) : List[User] = dao.find(MongoDBObject("userId" -> MongoDBObject("$in" -> userIdList))).toList
+  
+  def authenticate(email: String, password: String): Option[User] = dao.findOne(DBObject("email" -> email, "password" -> password))
+  def create(user: User) = dao.insert(user)
 }
 
 trait UserJson {
@@ -35,7 +38,8 @@ trait UserJson {
       Json.obj(
 		"userId" -> u.userId,
 		"name" -> u.name,
-		"email" -> u.email
+		"email" -> u.email,
+		"userImage" -> u.userImage
       )
     }
   } 

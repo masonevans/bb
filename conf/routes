@@ -5,10 +5,14 @@
 # Home page
 GET     /                           controllers.Application.index
 
+# Authentication
+GET     /login                              controllers.Application.login
+POST    /login                              controllers.Application.authenticate
+GET     /logout                             controllers.Application.logout
+
 # Users
 GET     /me/:userId                 controllers.Application.me(userId: Int)
-GET     /about                      controllers.Application.about
-GET     /friends                    controllers.Application.friends
+GET     /friends/:userId            controllers.Application.friends(userId: Int)
 GET     /news/:userId               controllers.Application.news(userId: Int)
 
 # Map static resources from the /public folder to the /assets URL path

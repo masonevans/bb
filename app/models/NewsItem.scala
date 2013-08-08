@@ -25,6 +25,8 @@ trait NewsItemDAO extends ModelCompanion[NewsItem, ObjectId] {
 
   def findOneByNewsItemId(newsItemId:Int) : Option[NewsItem] = dao.findOne(MongoDBObject("newsId" -> newsItemId));
   def findNewsItemsByIds(newsItemIdList:List[Int]) : List[NewsItem] = dao.find(MongoDBObject("newsId" -> MongoDBObject("$in" -> newsItemIdList))).toList
+  
+  def create(newsItem: NewsItem) = dao.insert(newsItem)
 }
 
 trait NewsItemJson {
