@@ -18,11 +18,14 @@ object Application extends Controller {
   // -- Authentication
 
   val loginForm = Form(
-    tuple(
+    mapping(
       "email" -> text,
-      "password" -> text
-    ) verifying ("Invalid email or password", result => result match {
-      case (email, password) => User.authenticate(email, password).isDefined
+	  "password" -> text
+    )((email, password) => User(email = email, password = password, userId = User.findIdForEmail(email)))
+     ((user: User) => Some(user.email, user.password))
+     
+   verifying ("Invalid email or password", result => result match {
+      case result: User => User.authenticate(result.email, result.password).isDefined
     })
   )
 
@@ -39,7 +42,7 @@ object Application extends Controller {
   def authenticate = Action { implicit request =>
     loginForm.bindFromRequest.fold(
       formWithErrors => BadRequest(html.login(formWithErrors)),
-      user => Redirect(routes.Application.me(1234)).withSession("email" -> user._1)
+      user => Redirect(routes.Me.index).withSession("userId" -> user.userId)
     )
   }
   
@@ -52,15 +55,14 @@ object Application extends Controller {
     )
   }
   
-  def me(userId: Int) = Action {
-    Ok(views.html.me("BB:Me", User.findOneByUserId(userId)))
-  }
-  
-  def friends(userId: Int) = Action {
+  def friends(userId: String) = Action {
     Ok(Json.toJson(User.findUsersByIds(User.findOneByUserId(userId).friends)))
   }  
   
-  def news(userId: Int) = Action {
+  def news(userId: String) = Action {
     Ok(Json.toJson(NewsItem.findNewsItemsByIds(User.findOneByUserId(userId).posts)))
   }
+}
+
+trait Secured {
 }
