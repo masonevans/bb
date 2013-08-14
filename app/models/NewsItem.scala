@@ -14,7 +14,6 @@ import play.api.libs.json._
 
 case class NewsItem(
     id : ObjectId = new ObjectId,
-    newsId : Int,
     message: String,
     createdDate: Date = new Date) 
 
@@ -23,8 +22,8 @@ object NewsItem extends NewsItemDAO with NewsItemJson
 trait NewsItemDAO extends ModelCompanion[NewsItem, ObjectId] {
   val dao = new SalatDAO[NewsItem, ObjectId](collection = mongoCollection("news")) {}
 
-  def findOneByNewsItemId(newsItemId:Int) : Option[NewsItem] = dao.findOne(MongoDBObject("newsId" -> newsItemId));
-  def findNewsItemsByIds(newsItemIdList:List[Int]) : List[NewsItem] = dao.find(MongoDBObject("newsId" -> MongoDBObject("$in" -> newsItemIdList))).toList
+  //def findOneById(newsItemId:ObjectId) : Option[NewsItem] = dao.findOne(MongoDBObject("id" -> newsItemId));
+  def findNewsItemsByIds(newsItemIdList:List[ObjectId]) : List[NewsItem] = dao.find(MongoDBObject("_id" -> MongoDBObject("$in" -> newsItemIdList))).toList
   
   def create(newsItem: NewsItem) = dao.insert(newsItem)
 }
@@ -33,7 +32,7 @@ trait NewsItemJson {
   implicit val getJson = new Writes[NewsItem] {
     def writes(u: NewsItem): JsValue = {
       Json.obj(
-		"newsId" -> u.newsId,
+		"id" -> u.id.toString(),
 		"message" -> u.message,
 		"createdDate" -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSSS").format(u.createdDate)
       )

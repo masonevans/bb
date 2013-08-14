@@ -18,6 +18,16 @@
 		</div>
 		<div id="bodyContainer">
 			<div id="aboutContainer">@about(user)</div>
+			<div id="newPostContainer">
+				@helper.form(routes.Me.newPost) {
+					<p>
+						<input type="text" name="message" id="message" placeholder="message">
+					</p>
+					<p>
+						<button type="submit" id="submit">Submit</button>
+					</p>
+				}
+			</div>
 			<div id="friendListContainerContainer">
 				Friends
 				<div id="friendListContainer">Loading...</div>

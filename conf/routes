@@ -10,8 +10,11 @@ GET     /login                              controllers.Application.login
 POST    /login                              controllers.Application.authenticate
 GET     /logout                             controllers.Application.logout
 
-# Users
+# Me
 GET     /me                 controllers.Me.index
+POST    /me/posts			controllers.Me.newPost
+
+# Users
 GET     /friends/:userId            controllers.Application.friends(userId: String)
 GET     /news/:userId               controllers.Application.news(userId: String)
 

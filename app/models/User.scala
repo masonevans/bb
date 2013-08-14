@@ -17,7 +17,7 @@ case class User(
 	email: String = "",
 	userImage: String = "",
 	password: String = "",
-	posts: List[Int] = Nil,
+	posts: List[ObjectId] = Nil,
 	friends: List[String] = Nil
 )
 
@@ -33,6 +33,9 @@ trait UserDAO extends ModelCompanion[User, ObjectId] {
   
   def authenticate(email: String, password: String): Option[User] = dao.findOne(DBObject("email" -> email, "password" -> password))
   def create(user: User) = dao.insert(user)
+  def addNewsItem(userId: Option[String], newsId: ObjectId) = userId.foreach(uid =>
+  	dao.update(MongoDBObject("userId" -> uid), MongoDBObject("$push" -> MongoDBObject("posts" -> newsId)), false, false)
+  )
 }
 
 trait UserJson {
