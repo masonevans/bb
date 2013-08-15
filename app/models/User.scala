@@ -18,7 +18,8 @@ case class User(
 	userImage: String = "",
 	password: String = "",
 	posts: List[ObjectId] = Nil,
-	friends: List[String] = Nil
+	friends: List[String] = Nil,
+	newsFeed: List[ObjectId] = Nil
 )
 
 object User extends UserDAO with UserJson
@@ -41,7 +42,7 @@ trait UserDAO extends ModelCompanion[User, ObjectId] {
   	  val user = findOneByUserId(userId.getOrElse(""))
   	  
   	  userId.foreach(uid =>
-  	    dao.update(MongoDBObject("userId" -> MongoDBObject("$in" -> user.friends)), MongoDBObject("$push" -> MongoDBObject("newsFeed" -> MongoDBObject("postId" -> newsId))), true, true)
+  	    dao.update(MongoDBObject("userId" -> MongoDBObject("$in" -> user.friends)), MongoDBObject("$push" -> MongoDBObject("newsFeed" -> newsId)), true, true)
   	  )
   }
 }

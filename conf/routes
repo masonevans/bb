@@ -13,6 +13,7 @@ GET     /logout					controllers.Application.logout
 # Me
 GET     /home					controllers.Me.index
 POST    /home/posts				controllers.Me.newPost
+GET		/home/newsFeed			controllers.Me.newsFeed
 
 # Users
 GET		/user/:userId			controllers.User.index(userId: String)

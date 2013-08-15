@@ -4,6 +4,7 @@ import play.api._
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
+import play.api.libs.json._
 
 import models._
 import views._
@@ -30,5 +31,9 @@ object Me extends Controller with Secured {
         Redirect(routes.Me.index)
       }
 	)
+  }
+  
+  def newsFeed = Action { implicit request =>
+    Ok(Json.toJson(NewsItem.findNewsItemsByIds(models.User.findOneByUserId(request.session.get("userId").getOrElse("")).newsFeed)))
   }
 }

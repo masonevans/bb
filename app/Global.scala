@@ -45,6 +45,12 @@ object InitialData {
         NewsItem(message = "Tom News 2"),
         NewsItem(message = "Tom News 3")
       ).map( NewsItem.create(_, Some("1236")) )
+      
+      Seq(
+        NewsItem(message = "Al News 5"),
+        NewsItem(message = "Al News 6"),
+        NewsItem(message = "Al News 7")
+      ).map( NewsItem.create(_, Some("1235")) )
     }
   }
 }
