@@ -18,8 +18,8 @@ object Me extends Controller with Secured {
   
 
   
-  def index = Action { implicit request =>
-    Ok(views.html.me("BB:Me", User.findOneByUserId(request.session.get("userId").getOrElse(""))))
+  def index() = Action { implicit request =>
+    Ok(views.html.user("BB:Me", models.User.findOneByUserId(request.session.get("userId").getOrElse(""))))
   }
   
   def newPost = Action { implicit request =>
@@ -27,7 +27,7 @@ object Me extends Controller with Secured {
       formWithErrors => Forbidden,
       newPost => { 
         NewsItem.create(NewsItem(message = newPost.message)) match {
-          case Some(newsItemId) => User.addNewsItem(request.session.get("userId"), newsItemId)
+          case Some(newsItemId) => models.User.addNewsItem(request.session.get("userId"), newsItemId)
           case None => Nil
         }
         Redirect(routes.Me.index)

@@ -21,11 +21,11 @@ object Application extends Controller {
     mapping(
       "email" -> text,
 	  "password" -> text
-    )((email, password) => User(email = email, password = password, userId = User.findIdForEmail(email)))
-     ((user: User) => Some(user.email, user.password))
+    )((email, password) => models.User(email = email, password = password, userId = models.User.findIdForEmail(email)))
+     ((user: models.User) => Some(user.email, user.password))
      
    verifying ("Invalid email or password", result => result match {
-      case result: User => User.authenticate(result.email, result.password).isDefined
+      case result: User => models.User.authenticate(result.email, result.password).isDefined
     })
   )
 
@@ -56,11 +56,11 @@ object Application extends Controller {
   }
   
   def friends(userId: String) = Action {
-    Ok(Json.toJson(User.findUsersByIds(User.findOneByUserId(userId).friends)))
+    Ok(Json.toJson(models.User.findUsersByIds(models.User.findOneByUserId(userId).friends)))
   }  
   
   def news(userId: String) = Action {
-    Ok(Json.toJson(NewsItem.findNewsItemsByIds(User.findOneByUserId(userId).posts)))
+    Ok(Json.toJson(NewsItem.findNewsItemsByIds(models.User.findOneByUserId(userId).posts)))
   }
 }
 
