@@ -19,7 +19,7 @@ object Me extends Controller with Secured {
 
   
   def index() = Action { implicit request =>
-    Ok(views.html.user("BB:Me", models.User.findOneByUserId(request.session.get("userId").getOrElse(""))))
+    Ok(views.html.me("BB:Me", models.User.findOneByUserId(request.session.get("userId").getOrElse(""))))
   }
   
   def newPost = Action { implicit request =>
