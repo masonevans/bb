@@ -26,10 +26,7 @@ object Me extends Controller with Secured {
     postForm.bindFromRequest.fold(
       formWithErrors => Forbidden,
       newPost => { 
-        NewsItem.create(NewsItem(message = newPost.message), request.session.get("userId"))/* match {
-          case Some(newsItemId) => models.User.addNewsItem(, newsItemId)
-          case None => Nil
-        }*/
+        NewsItem.create(NewsItem(message = newPost.message), request.session.get("userId"))
         Redirect(routes.Me.index)
       }
 	)

@@ -33,9 +33,17 @@ trait UserDAO extends ModelCompanion[User, ObjectId] {
   
   def authenticate(email: String, password: String): Option[User] = dao.findOne(DBObject("email" -> email, "password" -> password))
   def create(user: User) = dao.insert(user)
-  def addNewsItem(userId: Option[String], newsId: ObjectId) = userId.foreach(uid =>
-  	dao.update(MongoDBObject("userId" -> uid), MongoDBObject("$push" -> MongoDBObject("posts" -> newsId)), false, false)
-  )
+  def addNewsItem(userId: Option[String], newsId: ObjectId) = {
+	  userId.foreach(uid =>
+  		dao.update(MongoDBObject("userId" -> uid), MongoDBObject("$push" -> MongoDBObject("posts" -> newsId)), false, false)
+  	  )
+  	  
+  	  val user = findOneByUserId(userId.getOrElse(""))
+  	  
+  	  userId.foreach(uid =>
+  	    dao.update(MongoDBObject("userId" -> MongoDBObject("$in" -> user.friends)), MongoDBObject("$push" -> MongoDBObject("newsFeed" -> MongoDBObject("postId" -> newsId))), true, true)
+  	  )
+  }
 }
 
 trait UserJson {
