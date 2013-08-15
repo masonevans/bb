@@ -29,10 +29,22 @@ object InitialData {
       ).foreach(User.create)
       
       Seq(
-        NewsItem(message = "News 1"),
-        NewsItem(message = "News 2"),
-        NewsItem(message = "News 3")
-      ).map( NewsItem.create(_).foreach(User.addNewsItem(Some("1234"), _)) )
+        NewsItem(message = "Mason News 1"),
+        NewsItem(message = "Mason News 2"),
+        NewsItem(message = "Mason News 3")
+      ).map( NewsItem.create(_, Some("1234")) )
+      
+      Seq(
+        NewsItem(message = "Al News 1"),
+        NewsItem(message = "Al News 2"),
+        NewsItem(message = "Al News 3")
+      ).map( NewsItem.create(_, Some("1235")) )
+      
+      Seq(
+        NewsItem(message = "Tom News 1"),
+        NewsItem(message = "Tom News 2"),
+        NewsItem(message = "Tom News 3")
+      ).map( NewsItem.create(_, Some("1236")) )
     }
   }
 }

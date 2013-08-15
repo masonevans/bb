@@ -14,7 +14,8 @@ object User extends Controller with Secured {
      Redirect(routes.Me.index) 
    }
    else {
-     Ok(views.html.user(request.session.get("userId").getOrElse("").equals(userId).toString(), models.User.findOneByUserId(userId)))
+     val user = models.User.findOneByUserId(userId)
+     Ok(views.html.user("BB:" + user.name, user))
    }
   }
 }

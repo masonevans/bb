@@ -22,10 +22,16 @@ object NewsItem extends NewsItemDAO with NewsItemJson
 trait NewsItemDAO extends ModelCompanion[NewsItem, ObjectId] {
   val dao = new SalatDAO[NewsItem, ObjectId](collection = mongoCollection("news")) {}
 
-  //def findOneById(newsItemId:ObjectId) : Option[NewsItem] = dao.findOne(MongoDBObject("id" -> newsItemId));
-  def findNewsItemsByIds(newsItemIdList:List[ObjectId]) : List[NewsItem] = dao.find(MongoDBObject("_id" -> MongoDBObject("$in" -> newsItemIdList))).toList
+  def findNewsItemsByIds(newsItemIdList:List[ObjectId]) : List[NewsItem] = 
+    dao
+    	.find(MongoDBObject("_id" -> MongoDBObject("$in" -> newsItemIdList)))
+    	.sort(orderBy = MongoDBObject("createdDate" -> -1))
+    	.toList
   
-  def create(newsItem: NewsItem) = dao.insert(newsItem)
+  def create(newsItem: NewsItem, userId: Option[String]) = {
+    dao.insert(newsItem)
+    models.User.addNewsItem(userId, newsItem.id)
+  }
 }
 
 trait NewsItemJson {
