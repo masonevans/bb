@@ -11,10 +11,10 @@
 				  <a class="brand" href="#">BB</a>
 				  <div class="nav-collapse collapse">
 				    <p class="navbar-text pull-right">
-				      Logged in as <a href="@routes.Me.index" class="navbar-link">@user.name</a>
+				      Logged in as <a href="@routes.User.index(user.userId)" class="navbar-link">@user.name</a>
 				    </p>
 				    <ul class="nav">
-				      <li class="active"><a href="#">Home</a></li>
+				      <li><a href="/home">Home</a></li>
 				      <li><a href="@routes.Application.logout">Logout</a></li>
 				    </ul>
 				  </div><!--/.nav-collapse -->

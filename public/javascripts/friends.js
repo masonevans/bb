@@ -1,12 +1,8 @@
 function loadFriendList() {
 	$.get("http://localhost:9000/friends/" + userId, function(data) {
-		$("#friendListContainer").html("");
 		data.forEach(
 			function(element, index, array) {
-				$("#friendListContainer").append(
-					"<p class='friendUser' title='" + element.email + "'>" + 
-						"<a href='/user/" + element.userId + "'>" + element.name + "</a>" +
-					"</p>");
+				$("#friendListContainer").append("<li><a href='/user/" + element.userId + "'>" + element.name + "</a></li>");
 			}
 		);
 	}, "json");

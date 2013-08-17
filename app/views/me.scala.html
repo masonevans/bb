@@ -8,7 +8,28 @@
 	@htmlHeader(title, user)
     <body>
 		@header(user)
-		<div id="bodyContainer">
+	     <div class="container-fluid">
+	      <div class="row-fluid">
+	        <div class="span3">
+	          <div class="well sidebar-nav">
+	            <ul class="nav nav-list" id="friendListContainer">
+	              <li class="nav-header">Friends</li>
+	            </ul>
+	          </div><!--/.well -->
+	        </div><!--/span-->
+		     <div class="span9" id="newsFeedContainer">
+	          <div class="hero-unit">
+				@helper.form(routes.Me.newPost) {
+					<p>
+						<input type="text" name="message" id="message" placeholder="Update...">
+					</p>
+					<p>
+						<button type="submit" id="submit">Submit</button>
+					</p>
+				}
+	       </div>
+	     </div>
+		<!--div id="bodyContainer">
 			<div id="aboutContainer">@about(user)</div>
 			<div id="newPostContainer">
 				@helper.form(routes.Me.newPost) {
@@ -25,12 +46,12 @@
 				<div id="friendListContainer">Loading...</div>
 			</div>
 			<div id="newsFeedContainer">Loading...</div>
-		</div>
+		</div-->
 	</body>
 	<script src="@routes.Assets.at("javascripts/newsFeed.js")" type="text/javascript"></script>
 	<script src="@routes.Assets.at("javascripts/friends.js")" type="text/javascript"></script>
 	<script type="text/javascript">
 		loadFriendList();
-		loadNewsFeed();
+		loadNewsFeed("http://localhost:9000/home/newsFeed");
 	</script>
 </html>
